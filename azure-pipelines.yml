@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  vmImage: windows-latest
+
+
+stages:
+- stage: PreStage
+  displayName: 'PreStage'
+  jobs:
+  - job: BuildCode
+    displayName: 'Build Job'
+    steps:
+    - script: |
+        echo "Building the code"
+      displayName: 'Build the code'
+
+  
+- stage: CheckoutUAT
+  displayName: 'CheckoutUAT'
+  jobs:
+  - job: Checkout
+    steps:
+    - task: CmdLine@2
+      inputs:
+        script: |
+          git clone --branch UAT --single-branch https://$(System.AccessToken)@dev.azure.com/{Your_Organization_Name}/{Your_Project_Name}/_git/{Your_Repository_Name}
+          cd {Your_Repository_Name}
+
+
+
+
