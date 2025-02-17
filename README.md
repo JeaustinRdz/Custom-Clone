@@ -10,14 +10,14 @@ This pipeline demonstrates how to perform a **custom Git clone and checkout** us
 
 ## Pipeline Configuration
 
-
+```sh
 - task: CmdLine@2
     inputs:
     script: |
         git clone --branch UAT --single-branch https://$(System.AccessToken)@dev.azure.com/{Your_Organization_Name}/{Your_Project_Name}/_git/{Your_Repository_Name}
         cd {Your_Repository_Name}
-
 ```
+
 
 ## Explanation
 - **`git clone --branch UAT --single-branch <repo>`**: Clones only the `UAT` branch to avoid downloading unnecessary data.
@@ -34,6 +34,7 @@ This pipeline demonstrates how to perform a **custom Git clone and checkout** us
   ```sh
   git branch -r
   ```
+  
 - If missing, create and push the branch:
   ```sh
   git checkout -b UAT
